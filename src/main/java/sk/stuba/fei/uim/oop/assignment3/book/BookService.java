@@ -1,21 +1,18 @@
-package sk.stuba.fei.uim.oop.assignment3;
+package sk.stuba.fei.uim.oop.assignment3.book;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class BookService implements InterfaceBookService{
+public class BookService implements InterfaceBookService {
 
-    private LibraryRepository repository;
+    private BookRepository repository;
 
     @Autowired
-    public BookService(LibraryRepository repository) {
+    public BookService(BookRepository repository) {
         this.repository = repository;
     }
 
@@ -39,6 +36,11 @@ public class BookService implements InterfaceBookService{
     @Override
     public List<Book> getAllByName(String name){
         return repository.findBookByName(name);
+    }
+
+    @Override
+    public Book getById(Long id) {
+        return repository.findBookById(id);
     }
 
 }
