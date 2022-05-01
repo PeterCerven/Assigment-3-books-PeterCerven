@@ -27,10 +27,7 @@ public class AuthorController {
         return new AuthorResponse(authorService.createAuthor(author));
     }
 
-//    @PutMapping("/{idk}")
-//    public AuthorResponse addBookToAuthor(@PathVariable("idk") Long bookId, @RequestParam("author") Long authorId){
-//        return new AuthorResponse((this.authorService.addBookToAuthor(bookId, authorId)));
-//    }
+
 
     @GetMapping({"/{id}"})
     public AuthorResponse getAuthorWithId(@PathVariable("id") Long authorId) {

@@ -4,8 +4,9 @@ import java.util.List;
 
 public interface InterfaceAuthorService {
     List<Author> getAllAuthors();
-//    Author addBookToAuthor(Long bookId, Long authorId);
+
     Author createAuthor(AuthorRequest author);
+
     Author getAuthor(Long id);
 
     Author updateAuthor(Long id, AuthorRequest body);

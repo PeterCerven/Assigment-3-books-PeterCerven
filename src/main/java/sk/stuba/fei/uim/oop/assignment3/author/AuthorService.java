@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.stuba.fei.uim.oop.assignment3.book.Book;
 import sk.stuba.fei.uim.oop.assignment3.book.InterfaceBookService;
+import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,14 +27,6 @@ public class AuthorService implements  InterfaceAuthorService{
         return this.repository.findAll();
     }
 
-//    @Override
-//    public Author addBookToAuthor(Long bookId, Long authorId) {
-//        Optional<Author> authorOptional = this.repository.findById(authorId);
-//        Author author = authorOptional.orElseThrow();
-//        Book book = bookService.getById(bookId);
-//        author.getBooks().add(book);
-//        return this.repository.save(author);
-//    }
 
     @Override
     public Author createAuthor(AuthorRequest request) {
@@ -42,13 +35,13 @@ public class AuthorService implements  InterfaceAuthorService{
 
     @Override
     public Author getAuthor(Long id) {
-        return this.repository.findById(id).orElseThrow();
+        return this.repository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
     public Author updateAuthor(Long id, AuthorRequest body) {
         Optional<Author> authorOptional = this.repository.findById(id);
-        Author author = authorOptional.orElseThrow();
+        Author author = authorOptional.orElseThrow(NotFoundException::new);
         if (body.getName() != null){
             author.setName(body.getName());
         }
@@ -61,7 +54,7 @@ public class AuthorService implements  InterfaceAuthorService{
     @Override
     public void delete(Long id) {
         Optional<Author> authorOptional = this.repository.findById(id);
-        Author author = authorOptional.orElseThrow();
+        Author author = authorOptional.orElseThrow(NotFoundException::new);
         this.repository.delete(author);
     }
 
