@@ -11,7 +11,7 @@ public class BookResponse {
     private Long id;
     private String name;
     private String description;
-    private Author author;
+    private Long author;
     private int pages;
     private int amount;
     private int lendCount;

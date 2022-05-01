@@ -3,13 +3,15 @@ package sk.stuba.fei.uim.oop.assignment3.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService implements InterfaceBookService {
 
-    private BookRepository repository;
+    private final BookRepository repository;
 
     @Autowired
     public BookService(BookRepository repository) {
@@ -24,20 +26,43 @@ public class BookService implements InterfaceBookService {
 
     @Override
     public Book createBook(BookRequest request) {
-        Book newBook = new Book();
-        newBook.setAuthor(request.getAuthor());
-        newBook.setName(request.getName());
-        return this.repository.save(newBook);
+        return this.repository.save(new Book(request));
     }
 
-    @Override
-    public List<Book> getAllByName(String name){
-        return repository.findBookByName(name);
-    }
 
     @Override
     public Book getById(Long id) {
         return repository.findBookById(id);
+    }
+
+    @Override
+    public Book updateBook(Long id, BookRequest body) {
+        Book book = repository.findBookById(id);
+        if (book == null){
+            throw new NotFoundException();
+        }
+        if (body.getName() != null){
+            book.setName(body.getName());
+        }
+        if (body.getDescription() != null){
+            book.setDescription(body.getDescription());
+        }
+        if (body.getPages() != 0){
+            book.setPages(body.getPages());
+        }
+        if (body.getAuthor() != 0L && body.getAuthor() != null){
+            book.setAuthor(body.getAuthor());
+        }
+        return repository.findBookById(id);
+    }
+
+    @Override
+    public void deleteBook(Long id) {
+        Book book = repository.findBookById(id);
+        if (book == null){
+            throw new NotFoundException();
+        }
+        repository.delete(book);
     }
 
 }

@@ -2,8 +2,6 @@ package sk.stuba.fei.uim.oop.assignment3.author;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sk.stuba.fei.uim.oop.assignment3.book.Book;
-import sk.stuba.fei.uim.oop.assignment3.book.InterfaceBookService;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
 import java.util.List;

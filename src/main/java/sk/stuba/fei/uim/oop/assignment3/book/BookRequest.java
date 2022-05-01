@@ -10,7 +10,7 @@ import sk.stuba.fei.uim.oop.assignment3.author.Author;
 public class BookRequest {
     private String name;
     private String description;
-    private Author author;
+    private Long author;
     private int pages;
     private int amount;
     private int lendCount;

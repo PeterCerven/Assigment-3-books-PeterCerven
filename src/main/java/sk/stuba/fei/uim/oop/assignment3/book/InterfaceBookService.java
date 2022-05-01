@@ -9,7 +9,10 @@ public interface InterfaceBookService {
 
     Book createBook(BookRequest request);
 
-    List<Book> getAllByName(String name);
-
     Book getById(Long id);
+
+    Book updateBook(Long id, BookRequest body);
+
+    void deleteBook(Long id);
+
 }
