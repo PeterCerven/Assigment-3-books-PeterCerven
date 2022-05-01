@@ -16,10 +16,6 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping("/hello")
-    public String sayHello(){
-        return bookService.hello();
-    }
 
     @GetMapping("/books")
     public List<BookResponse> getAllBooks(){

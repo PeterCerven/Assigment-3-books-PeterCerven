@@ -16,9 +16,6 @@ public class BookService implements InterfaceBookService {
         this.repository = repository;
     }
 
-    public String hello(){
-        return "hello";
-    }
 
     @Override
     public List<Book> getAll() {

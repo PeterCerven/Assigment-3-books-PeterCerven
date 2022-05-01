@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.assignment3.author.Author;
 
-import javax.persistence.OneToOne;
-
 @Setter
 @Getter
 public class BookRequest {

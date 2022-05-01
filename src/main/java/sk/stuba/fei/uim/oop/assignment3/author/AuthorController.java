@@ -18,11 +18,32 @@ public class AuthorController {
     }
 
     @GetMapping
-    public List<AuthorResponse> getAllAuthors(){
+    public List<AuthorResponse> getAllAuthors() {
         return authorService.getAllAuthors().stream().map(AuthorResponse::new).collect(Collectors.toList());
     }
-    @PutMapping("/{bookId}")
-    public AuthorResponse addBookToAuthor(@PathVariable Long bookId, @RequestParam("author") Long authorId){
-        return new AuthorResponse((this.authorService.addBookToAuthor(bookId, authorId)));
+
+    @PostMapping
+    public AuthorResponse createAuthor(@RequestBody AuthorRequest author) {
+        return new AuthorResponse(authorService.createAuthor(author));
+    }
+
+//    @PutMapping("/{idk}")
+//    public AuthorResponse addBookToAuthor(@PathVariable("idk") Long bookId, @RequestParam("author") Long authorId){
+//        return new AuthorResponse((this.authorService.addBookToAuthor(bookId, authorId)));
+//    }
+
+    @GetMapping({"/{id}"})
+    public AuthorResponse getAuthorWithId(@PathVariable("id") Long authorId) {
+        return new AuthorResponse(this.authorService.getAuthor(authorId));
+    }
+
+    @PutMapping({"/{id}"})
+    public AuthorResponse updateAuthor(@PathVariable("id") Long authorId, @RequestBody AuthorRequest body) {
+        return new AuthorResponse(this.authorService.updateAuthor(authorId, body));
+    }
+
+    @DeleteMapping({"/{id}"})
+    public void deleteAuthor(@PathVariable("id") Long authorId) {
+        this.authorService.delete(authorId);
     }
 }

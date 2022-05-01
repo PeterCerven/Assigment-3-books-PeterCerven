@@ -7,7 +7,6 @@ import lombok.Setter;
 import sk.stuba.fei.uim.oop.assignment3.book.Book;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +22,8 @@ public class Author {
     @OneToMany
     private List<Book> books;
 
-    public Author(String name) {
-        this.name = name;
+    public Author(AuthorRequest request) {
+        this.name = request.getName();
+        this.surname = request.getSurname();
     }
 }

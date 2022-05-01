@@ -16,7 +16,7 @@ public class Book {
     private Long id;
     private String name;
     private String description;
-    @OneToOne
+    @ManyToOne
     private Author author;
     private int pages;
     private int amount;
