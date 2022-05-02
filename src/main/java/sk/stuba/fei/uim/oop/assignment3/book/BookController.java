@@ -42,4 +42,14 @@ public class BookController {
         this.bookService.deleteBook(bookId);
     }
 
+    @GetMapping("/{id}/amount")
+    public Amount getBookAmount(@PathVariable ("id") Long id){
+        return new Amount(this.bookService.getAmount(id));
+    }
+
+    @PostMapping("/{id}/amount")
+    public Amount updateBookAmount(@PathVariable ("id") Long id, @RequestBody Amount amount){
+        return new Amount(this.bookService.updateBookAmount(id, amount));
+    }
+
 }

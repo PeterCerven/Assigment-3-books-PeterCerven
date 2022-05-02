@@ -65,4 +65,16 @@ public class BookService implements InterfaceBookService {
         repository.delete(book);
     }
 
+    @Override
+    public int getAmount(Long id) {
+        return repository.findById(id).orElseThrow(NotFoundException::new).getAmount();
+    }
+
+    @Override
+    public int updateBookAmount(Long id, Amount amount) {
+        Book book = repository.findById(id).orElseThrow(NotFoundException::new);
+        book.setAmount(amount.getAmount());
+        return book.getAmount();
+    }
+
 }

@@ -15,4 +15,8 @@ public interface InterfaceBookService {
 
     void deleteBook(Long id);
 
+    int getAmount(Long id);
+
+    int updateBookAmount(Long id, Amount amount);
+
 }
