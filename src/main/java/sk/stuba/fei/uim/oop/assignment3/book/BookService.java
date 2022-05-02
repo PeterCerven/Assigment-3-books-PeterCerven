@@ -32,15 +32,12 @@ public class BookService implements InterfaceBookService {
 
     @Override
     public Book getById(Long id) {
-        return repository.findBookById(id);
+        return repository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
     public Book updateBook(Long id, BookRequest body) {
-        Book book = repository.findBookById(id);
-        if (book == null){
-            throw new NotFoundException();
-        }
+        Book book = repository.findById(id).orElseThrow(NotFoundException::new);
         if (body.getName() != null){
             book.setName(body.getName());
         }
@@ -58,10 +55,7 @@ public class BookService implements InterfaceBookService {
 
     @Override
     public void deleteBook(Long id) {
-        Book book = repository.findBookById(id);
-        if (book == null){
-            throw new NotFoundException();
-        }
+        Book book = repository.findById(id).orElseThrow(NotFoundException::new);
         repository.delete(book);
     }
 
@@ -75,6 +69,11 @@ public class BookService implements InterfaceBookService {
         Book book = repository.findById(id).orElseThrow(NotFoundException::new);
         book.setAmount(amount.getAmount());
         return book.getAmount();
+    }
+
+    @Override
+    public int getLendCount(Long id) {
+        return repository.findById(id).orElseThrow(NotFoundException::new).getLendCount();
     }
 
 }

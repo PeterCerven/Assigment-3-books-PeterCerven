@@ -33,6 +33,7 @@ public class BookController {
     public BookResponse getBook(@PathVariable("id") Long bookId)  {
         return new BookResponse(this.bookService.getById(bookId));
     }
+
     @PutMapping("/{id}")
     public BookResponse updateBook(@PathVariable("id") Long bookId, @RequestBody BookRequest body) {
         return new BookResponse(this.bookService.updateBook(bookId, body));
@@ -51,5 +52,11 @@ public class BookController {
     public Amount updateBookAmount(@PathVariable ("id") Long id, @RequestBody Amount amount){
         return new Amount(this.bookService.updateBookAmount(id, amount));
     }
+
+    @GetMapping("/{id}/lendCount")
+    public Amount getBookLendCount(@PathVariable ("id") Long id){
+        return new Amount(this.bookService.getLendCount(id));
+    }
+
 
 }

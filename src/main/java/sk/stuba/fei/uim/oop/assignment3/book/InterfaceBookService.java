@@ -19,4 +19,6 @@ public interface InterfaceBookService {
 
     int updateBookAmount(Long id, Amount amount);
 
+    int getLendCount(Long id);
+
 }
