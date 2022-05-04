@@ -1,7 +1,12 @@
 package sk.stuba.fei.uim.oop.assignment3.author;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sk.stuba.fei.uim.oop.assignment3.author.bodies.AuthorRequest;
+import sk.stuba.fei.uim.oop.assignment3.author.bodies.AuthorResponse;
+import sk.stuba.fei.uim.oop.assignment3.author.service.InterfaceAuthorService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,11 +28,9 @@ public class AuthorController {
     }
 
     @PostMapping
-    public AuthorResponse createAuthor(@RequestBody AuthorRequest author) {
-        return new AuthorResponse(authorService.createAuthor(author));
+    public ResponseEntity<AuthorResponse> createAuthor(@RequestBody AuthorRequest author) {
+        return new ResponseEntity<>(new AuthorResponse(authorService.createAuthor(author)), HttpStatus.CREATED);
     }
-
-
 
     @GetMapping({"/{id}"})
     public AuthorResponse getAuthorWithId(@PathVariable("id") Long authorId) {

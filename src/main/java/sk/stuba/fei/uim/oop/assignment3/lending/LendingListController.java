@@ -1,10 +1,13 @@
 package sk.stuba.fei.uim.oop.assignment3.lending;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import sk.stuba.fei.uim.oop.assignment3.author.AuthorResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import sk.stuba.fei.uim.oop.assignment3.lending.bodies.BookID;
+import sk.stuba.fei.uim.oop.assignment3.lending.bodies.LendingListRequest;
+import sk.stuba.fei.uim.oop.assignment3.lending.bodies.LendingListResponse;
+import sk.stuba.fei.uim.oop.assignment3.lending.service.InterfaceLendingListService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,8 +22,28 @@ public class LendingListController {
     public LendingListController(InterfaceLendingListService lendingListService) {
         this.lendingListService = lendingListService;
     }
+
     @GetMapping
-    public List<LendingListResponse> getAllLendingLists(){
-        return lendingListService.getAllAuthors().stream().map(LendingListResponse::new).collect(Collectors.toList());
+    public List<LendingListResponse> getAllLendingLists() {
+        return lendingListService.getAllLendingLists().stream().map(LendingListResponse::new).collect(Collectors.toList());
+    }
+
+    @PostMapping
+    public ResponseEntity<LendingListResponse> createLendingList() {
+        return new ResponseEntity<>(new LendingListResponse(lendingListService.createLending()), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public LendingListResponse getLendingList(@PathVariable("id") Long lendingListId) {
+        return new LendingListResponse(this.lendingListService.getById(lendingListId));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteLendingList(@PathVariable("id") Long lendingListId) {
+        this.lendingListService.deleteLendingList(lendingListId);
+    }
+    @PostMapping("{id}/add")
+    public LendingListResponse addBookToList(@PathVariable ("id") Long listId, @RequestBody BookID bookId){
+        return new LendingListResponse(this.lendingListService.addBookToList(listId, bookId));
     }
 }

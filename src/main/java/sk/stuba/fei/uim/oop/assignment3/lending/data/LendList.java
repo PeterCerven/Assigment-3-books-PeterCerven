@@ -1,11 +1,11 @@
-package sk.stuba.fei.uim.oop.assignment3.lending;
+package sk.stuba.fei.uim.oop.assignment3.lending.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sk.stuba.fei.uim.oop.assignment3.book.Book;
-import sk.stuba.fei.uim.oop.assignment3.book.BookRequest;
+import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
+import sk.stuba.fei.uim.oop.assignment3.lending.bodies.LendingListRequest;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,20 +15,19 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LendingList {
+public class LendList {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(orphanRemoval = true)
-    private List<Book> temporaryLendingList;
+    @OneToMany
+    private List<Book> lendingList;
 
     private boolean lended;
 
 
-
-    public LendingList(LendingListRequest request){
-        this.temporaryLendingList = request.getTemporaryLendingList();
+    public LendList(LendingListRequest request) {
+        this.lendingList = request.getLendingList();
         this.lended = request.isLended();
     }
 

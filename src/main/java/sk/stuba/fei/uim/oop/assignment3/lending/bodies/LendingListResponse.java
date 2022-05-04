@@ -1,8 +1,9 @@
-package sk.stuba.fei.uim.oop.assignment3.lending;
+package sk.stuba.fei.uim.oop.assignment3.lending.bodies;
 
 import lombok.Getter;
 import lombok.Setter;
-import sk.stuba.fei.uim.oop.assignment3.book.Book;
+import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
+import sk.stuba.fei.uim.oop.assignment3.lending.data.LendList;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ public class LendingListResponse {
     private List<Book> lendingList;
     private boolean lended;
 
-    public LendingListResponse(LendingList list) {
+    public LendingListResponse(LendList list) {
         this.id = list.getId();
-        this.lendingList = list.getTemporaryLendingList();
+        this.lendingList = list.getLendingList();
         this.lended = list.isLended();
     }
 }

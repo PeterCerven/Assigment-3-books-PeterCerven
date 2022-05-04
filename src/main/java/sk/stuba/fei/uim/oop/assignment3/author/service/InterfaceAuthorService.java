@@ -1,4 +1,7 @@
-package sk.stuba.fei.uim.oop.assignment3.author;
+package sk.stuba.fei.uim.oop.assignment3.author.service;
+
+import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
+import sk.stuba.fei.uim.oop.assignment3.author.bodies.AuthorRequest;
 
 import java.util.List;
 

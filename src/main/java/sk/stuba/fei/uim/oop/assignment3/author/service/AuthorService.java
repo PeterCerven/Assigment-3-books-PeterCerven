@@ -1,22 +1,23 @@
-package sk.stuba.fei.uim.oop.assignment3.author;
+package sk.stuba.fei.uim.oop.assignment3.author.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
+import sk.stuba.fei.uim.oop.assignment3.author.data.AuthorRepository;
+import sk.stuba.fei.uim.oop.assignment3.author.bodies.AuthorRequest;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AuthorService implements  InterfaceAuthorService{
+public class AuthorService implements InterfaceAuthorService {
 
     private final AuthorRepository repository;
-
 
     @Autowired
     public AuthorService(AuthorRepository repository) {
         this.repository = repository;
-
     }
 
 
@@ -40,10 +41,10 @@ public class AuthorService implements  InterfaceAuthorService{
     public Author updateAuthor(Long id, AuthorRequest body) {
         Optional<Author> authorOptional = this.repository.findById(id);
         Author author = authorOptional.orElseThrow(NotFoundException::new);
-        if (body.getName() != null){
+        if (body.getName() != null) {
             author.setName(body.getName());
         }
-        if (body.getSurname() != null){
+        if (body.getSurname() != null) {
             author.setSurname(body.getSurname());
         }
         return this.repository.save(author);

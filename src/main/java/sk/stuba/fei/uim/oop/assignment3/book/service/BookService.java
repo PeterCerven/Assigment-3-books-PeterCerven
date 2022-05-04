@@ -1,12 +1,15 @@
-package sk.stuba.fei.uim.oop.assignment3.book;
+package sk.stuba.fei.uim.oop.assignment3.book.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
+import sk.stuba.fei.uim.oop.assignment3.book.bodies.Amount;
+import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookRequest;
+import sk.stuba.fei.uim.oop.assignment3.book.data.BookRepository;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookService implements InterfaceBookService {
@@ -38,16 +41,16 @@ public class BookService implements InterfaceBookService {
     @Override
     public Book updateBook(Long id, BookRequest body) {
         Book book = repository.findById(id).orElseThrow(NotFoundException::new);
-        if (body.getName() != null){
+        if (body.getName() != null) {
             book.setName(body.getName());
         }
-        if (body.getDescription() != null){
+        if (body.getDescription() != null) {
             book.setDescription(body.getDescription());
         }
-        if (body.getPages() != 0){
+        if (body.getPages() != 0) {
             book.setPages(body.getPages());
         }
-        if (body.getAuthor() != 0L && body.getAuthor() != null){
+        if (body.getAuthor() != 0L && body.getAuthor() != null) {
             book.setAuthor(body.getAuthor());
         }
         return repository.findBookById(id);
