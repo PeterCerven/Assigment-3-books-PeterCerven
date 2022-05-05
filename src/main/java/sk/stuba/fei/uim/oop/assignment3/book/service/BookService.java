@@ -70,7 +70,7 @@ public class BookService implements InterfaceBookService {
     @Override
     public int updateBookAmount(Long id, Amount amount) {
         Book book = repository.findById(id).orElseThrow(NotFoundException::new);
-        book.setAmount(amount.getAmount());
+        book.setAmount(book.getAmount() + amount.getAmount());
         return book.getAmount();
     }
 

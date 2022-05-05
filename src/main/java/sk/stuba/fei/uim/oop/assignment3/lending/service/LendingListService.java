@@ -54,4 +54,17 @@ public class LendingListService implements InterfaceLendingListService {
         lendList.getLendingList().add(book);
         return repository.save(lendList);
     }
+
+    @Override
+    public void removeBookFromLendingList(Long listId, BookID bookId) {
+        Book book = bookRepository.findById(bookId.getBookId()).orElseThrow(NotFoundException::new);
+        LendList lendList = repository.findById(listId).orElseThrow(NotFoundException::new);
+        lendList.getLendingList().remove(book);
+    }
+
+    @Override
+    public void lendList(Long listId) {
+        LendList lendList = repository.findById(listId).orElseThrow(NotFoundException::new);
+        lendList.setLended(true);
+    }
 }

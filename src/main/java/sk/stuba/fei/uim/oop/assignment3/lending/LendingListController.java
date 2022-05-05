@@ -46,4 +46,14 @@ public class LendingListController {
     public LendingListResponse addBookToList(@PathVariable ("id") Long listId, @RequestBody BookID bookId){
         return new LendingListResponse(this.lendingListService.addBookToList(listId, bookId));
     }
+
+    @DeleteMapping("{id}/remove")
+    public void removeBookFromList(@PathVariable ("id") Long listId, @RequestBody BookID bookId){
+        this.lendingListService.removeBookFromLendingList(listId, bookId);
+    }
+
+    @GetMapping("{id}/lend")
+    public void lendList(@PathVariable ("id") Long listId){
+        this.lendingListService.lendList(listId);
+    }
 }

@@ -17,4 +17,8 @@ public interface InterfaceLendingListService {
     void deleteLendingList(Long id);
 
     LendList addBookToList(Long listId, BookID bookId);
+
+    void removeBookFromLendingList(Long listId, BookID bookId);
+
+    void lendList(Long listId);
 }
