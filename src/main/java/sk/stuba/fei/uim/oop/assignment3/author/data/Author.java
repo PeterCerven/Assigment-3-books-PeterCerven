@@ -22,7 +22,7 @@ public class Author {
     private Long id;
     private String name;
     private String surname;
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST ,fetch = FetchType.LAZY)
     private List<Book> books;
 
     public Author(AuthorRequest request) {

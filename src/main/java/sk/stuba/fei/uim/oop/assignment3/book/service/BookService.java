@@ -73,6 +73,7 @@ public class BookService implements InterfaceBookService {
     @Override
     public void deleteBook(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(NotFoundException::new);
+        book.getAuthor().getBooks().remove(book);
         bookRepository.delete(book);
     }
 

@@ -21,7 +21,7 @@ public class Book {
     private Long id;
     private String name;
     private String description;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Author.class, cascade = CascadeType.PERSIST)
     private Author author;
     private int pages;
     private int amount;

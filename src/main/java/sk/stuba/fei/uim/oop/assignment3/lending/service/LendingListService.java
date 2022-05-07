@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
 import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 import sk.stuba.fei.uim.oop.assignment3.book.data.BookRepository;
+import sk.stuba.fei.uim.oop.assignment3.exceptions.IllegalOperationException;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 import sk.stuba.fei.uim.oop.assignment3.lending.bodies.BookID;
 import sk.stuba.fei.uim.oop.assignment3.lending.data.LendList;
@@ -45,6 +46,9 @@ public class LendingListService implements InterfaceLendingListService {
     @Override
     public void deleteLendingList(Long id) {
         LendList lendList = lendingListRepository.findById(id).orElseThrow(NotFoundException::new);
+        for(Book book: lendList.getLendingLists()){
+            book.setLendCount(book.getLendCount() - 1);
+        }
         lendingListRepository.delete(lendList);
     }
 
@@ -53,14 +57,24 @@ public class LendingListService implements InterfaceLendingListService {
         Optional<Book> bookOptional = bookRepository.findById(bookId.getId());
         Book book = bookOptional.orElseThrow(NotFoundException::new);
         LendList lendList = lendingListRepository.findById(listId).orElseThrow(NotFoundException::new);
+        if (lendList.getLendingLists().contains(book)){
+            throw new IllegalOperationException();
+        }
+        if (lendList.isLended()){
+            throw new IllegalOperationException();
+        }
         lendList.getLendingLists().add(book);
         return lendingListRepository.save(lendList);
     }
 
     @Override
     public void removeBookFromLendingList(Long listId, BookID bookId) {
-        Book book = bookRepository.findById(bookId.getId()).orElseThrow(NotFoundException::new);
+        Optional<Book> bookOptional = bookRepository.findById(bookId.getId());
+        Book book = bookOptional.orElseThrow(NotFoundException::new);
         LendList lendList = lendingListRepository.findById(listId).orElseThrow(NotFoundException::new);
+        if (lendList.isLended()){
+            book.setLendCount(book.getLendCount() - 1);
+        }
         lendList.getLendingLists().remove(book);
         lendingListRepository.save(lendList);
     }
@@ -68,6 +82,12 @@ public class LendingListService implements InterfaceLendingListService {
     @Override
     public void lendList(Long listId) {
         LendList lendList = lendingListRepository.findById(listId).orElseThrow(NotFoundException::new);
+        if (lendList.isLended()){
+            throw new IllegalOperationException();
+        }
+        for(Book book: lendList.getLendingLists()){
+            book.setLendCount(book.getLendCount() + 1);
+        }
         lendList.setLended(true);
         lendingListRepository.save(lendList);
     }
