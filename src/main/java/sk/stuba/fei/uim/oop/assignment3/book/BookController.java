@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sk.stuba.fei.uim.oop.assignment3.book.bodies.Amount;
 import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookRequest;
+import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookRequestEdit;
 import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookResponse;
 import sk.stuba.fei.uim.oop.assignment3.book.service.InterfaceBookService;
 
@@ -39,7 +40,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public BookResponse updateBook(@PathVariable("id") Long bookId, @RequestBody BookRequest body) {
+    public BookResponse updateBook(@PathVariable("id") Long bookId, @RequestBody BookRequestEdit body) {
         return new BookResponse(this.bookService.updateBook(bookId, body));
     }
 

@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
 import sk.stuba.fei.uim.oop.assignment3.author.data.AuthorRepository;
 import sk.stuba.fei.uim.oop.assignment3.author.bodies.AuthorRequest;
-import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
-import sk.stuba.fei.uim.oop.assignment3.book.data.BookRepository;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
 import java.util.List;
@@ -15,35 +13,35 @@ import java.util.Optional;
 @Service
 public class AuthorService implements InterfaceAuthorService {
 
-    private final AuthorRepository repository;
-    private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
+
 
     @Autowired
-    public AuthorService(AuthorRepository repository, BookRepository bookRepository) {
-        this.repository = repository;
-        this.bookRepository = bookRepository;
+    public AuthorService(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+
     }
 
 
     @Override
     public List<Author> getAllAuthors() {
-        return this.repository.findAll();
+        return this.authorRepository.findAll();
     }
 
 
     @Override
     public Author createAuthor(AuthorRequest request) {
-        return this.repository.save(new Author(request));
+        return this.authorRepository.save(new Author(request));
     }
 
     @Override
     public Author getAuthor(Long id) {
-        return this.repository.findById(id).orElseThrow(NotFoundException::new);
+        return this.authorRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
     public Author updateAuthor(Long id, AuthorRequest body) {
-        Optional<Author> authorOptional = this.repository.findById(id);
+        Optional<Author> authorOptional = this.authorRepository.findById(id);
         Author author = authorOptional.orElseThrow(NotFoundException::new);
         if (body.getName() != null) {
             author.setName(body.getName());
@@ -51,17 +49,12 @@ public class AuthorService implements InterfaceAuthorService {
         if (body.getSurname() != null) {
             author.setSurname(body.getSurname());
         }
-        return this.repository.save(author);
+        return this.authorRepository.save(author);
     }
 
     @Override
     public void delete(Long id) {
-        Optional<Author> authorOptional = this.repository.findById(id);
-        Author author = authorOptional.orElseThrow(NotFoundException::new);
-        if (!author.getBooks().isEmpty()){
-            this.bookRepository.deleteAll(author.getBooks());
-        }
-        this.repository.delete(author);
+        this.authorRepository.delete(this.authorRepository.findById(id).orElseThrow(NotFoundException::new));
     }
 
 

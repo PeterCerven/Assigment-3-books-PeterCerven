@@ -2,7 +2,6 @@ package sk.stuba.fei.uim.oop.assignment3.lending.service;
 
 import sk.stuba.fei.uim.oop.assignment3.lending.bodies.BookID;
 import sk.stuba.fei.uim.oop.assignment3.lending.data.LendList;
-import sk.stuba.fei.uim.oop.assignment3.lending.bodies.LendingListRequest;
 
 import java.util.List;
 

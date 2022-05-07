@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookID {
-    private Long bookId;
+    private Long id;
 }

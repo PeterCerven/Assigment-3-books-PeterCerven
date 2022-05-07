@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sk.stuba.fei.uim.oop.assignment3.lending.bodies.BookID;
-import sk.stuba.fei.uim.oop.assignment3.lending.bodies.LendingListRequest;
 import sk.stuba.fei.uim.oop.assignment3.lending.bodies.LendingListResponse;
 import sk.stuba.fei.uim.oop.assignment3.lending.service.InterfaceLendingListService;
 

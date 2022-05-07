@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
 public class BookResponse {
@@ -20,7 +22,7 @@ public class BookResponse {
         this.id = b.getId();
         this.name = b.getName();
         this.description = b.getDescription();
-        this.author = b.getAuthor();
+        this.author = b.getAuthor().getId();
         this.pages = b.getPages();
         this.amount = b.getAmount();
         this.lendCount = b.getLendCount();

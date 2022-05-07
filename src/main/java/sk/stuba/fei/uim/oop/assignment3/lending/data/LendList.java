@@ -5,15 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
-import sk.stuba.fei.uim.oop.assignment3.lending.bodies.LendingListRequest;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class LendList {
     @Id
@@ -21,15 +20,12 @@ public class LendList {
     private Long id;
 
     @OneToMany
-    private List<Book> lendingList;
+    private List<Book> lendingLists;
 
     private boolean lended;
 
-
-    public LendList(LendingListRequest request) {
-        this.lendingList = request.getLendingList();
-        this.lended = request.isLended();
+    public LendList() {
+        this.lended = false;
+        this.lendingLists = new ArrayList<Book>();
     }
-
-
 }

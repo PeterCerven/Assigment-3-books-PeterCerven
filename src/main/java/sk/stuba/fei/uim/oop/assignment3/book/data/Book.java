@@ -4,12 +4,12 @@ package sk.stuba.fei.uim.oop.assignment3.book.data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
 import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookRequest;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -21,15 +21,16 @@ public class Book {
     private Long id;
     private String name;
     private String description;
-    private Long author;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Author author;
     private int pages;
     private int amount;
     private int lendCount;
 
-    public Book(BookRequest request) {
+    public Book(BookRequest request, Author author) {
         this.name = request.getName();
         this.description = request.getDescription();
-        this.author = request.getAuthor();
+        this.author = author;
         this.pages = request.getPages();
         this.amount = request.getAmount();
         this.lendCount = request.getLendCount();
