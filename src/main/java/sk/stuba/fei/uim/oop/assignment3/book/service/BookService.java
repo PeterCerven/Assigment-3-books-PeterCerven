@@ -4,28 +4,28 @@ package sk.stuba.fei.uim.oop.assignment3.book.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
-import sk.stuba.fei.uim.oop.assignment3.author.data.AuthorRepository;
-import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookRequestEdit;
-import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
+import sk.stuba.fei.uim.oop.assignment3.author.service.AuthorService;
 import sk.stuba.fei.uim.oop.assignment3.book.bodies.Amount;
 import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookRequest;
+import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookRequestEdit;
+import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 import sk.stuba.fei.uim.oop.assignment3.book.data.BookRepository;
-import sk.stuba.fei.uim.oop.assignment3.exceptions.IllegalOperationException;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class BookService implements InterfaceBookService {
 
     private final BookRepository bookRepository;
-    private final AuthorRepository authorRepository;
+    private final AuthorService authorService;
 
     @Autowired
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
+    public BookService(BookRepository bookRepository, AuthorService authorService) {
         this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
+        this.authorService = authorService;
     }
 
 
@@ -37,9 +37,8 @@ public class BookService implements InterfaceBookService {
 
     @Override
     public Book createBook(BookRequest request) {
-        Optional<Author> authorOptional = authorRepository.findById(request.getAuthor());
-        Author author = authorOptional.orElseThrow(NotFoundException::new);
-        Book book = new Book(request,author);
+        Author author = authorService.findAuthorById(request.getAuthor());
+        Book book = new Book(request, author);
         author.getBooks().add(book);
         return this.bookRepository.save(book);
     }
@@ -63,11 +62,10 @@ public class BookService implements InterfaceBookService {
             book.setPages(body.getPages());
         }
         if (body.getAuthor() != null && body.getAuthor() != 0L) {
-            Optional<Author> authorOptional = authorRepository.findById(body.getAuthor());
-            Author author = authorOptional.orElseThrow(NotFoundException::new);
+            Author author = authorService.findAuthorById(body.getAuthor());
             book.setAuthor(author);
         }
-        return bookRepository.findBookById(id);
+        return book;
     }
 
     @Override
@@ -92,6 +90,11 @@ public class BookService implements InterfaceBookService {
     @Override
     public int getLendCount(Long id) {
         return bookRepository.findById(id).orElseThrow(NotFoundException::new).getLendCount();
+    }
+
+    public Book findBookById(Long id){
+        Optional<Book> bookOptional = bookRepository.findById(id);
+        return bookOptional.orElseThrow(NotFoundException::new);
     }
 
 }

@@ -1,7 +1,6 @@
 package sk.stuba.fei.uim.oop.assignment3.author.data;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,13 +21,13 @@ public class Author {
     private Long id;
     private String name;
     private String surname;
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST ,fetch = FetchType.LAZY)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Book> books;
 
     public Author(AuthorRequest request) {
         this.name = request.getName();
         this.surname = request.getSurname();
-        this.books = new ArrayList<Book>();
+        this.books = new ArrayList<>();
     }
 
 

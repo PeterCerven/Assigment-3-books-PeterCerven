@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 
-import java.util.stream.Collectors;
 
 @Getter
 @Setter

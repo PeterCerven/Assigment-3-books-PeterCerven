@@ -3,7 +3,6 @@ package sk.stuba.fei.uim.oop.assignment3.lending.bodies;
 import lombok.Getter;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookResponse;
-import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 import sk.stuba.fei.uim.oop.assignment3.lending.data.LendList;
 
 import java.util.List;

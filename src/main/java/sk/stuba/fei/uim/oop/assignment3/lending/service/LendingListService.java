@@ -3,9 +3,8 @@ package sk.stuba.fei.uim.oop.assignment3.lending.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
 import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
-import sk.stuba.fei.uim.oop.assignment3.book.data.BookRepository;
+import sk.stuba.fei.uim.oop.assignment3.book.service.BookService;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.IllegalOperationException;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 import sk.stuba.fei.uim.oop.assignment3.lending.bodies.BookID;
@@ -13,19 +12,18 @@ import sk.stuba.fei.uim.oop.assignment3.lending.data.LendList;
 import sk.stuba.fei.uim.oop.assignment3.lending.data.LendingListRepository;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class LendingListService implements InterfaceLendingListService {
 
     private final LendingListRepository lendingListRepository;
-
-    private final BookRepository bookRepository;
+    private final BookService bookService;
 
     @Autowired
-    public LendingListService(LendingListRepository lendingListRepository, BookRepository bookRepository) {
+    public LendingListService(LendingListRepository lendingListRepository, BookService bookService) {
         this.lendingListRepository = lendingListRepository;
-        this.bookRepository = bookRepository;
+        this.bookService = bookService;
     }
 
     @Override
@@ -46,7 +44,7 @@ public class LendingListService implements InterfaceLendingListService {
     @Override
     public void deleteLendingList(Long id) {
         LendList lendList = lendingListRepository.findById(id).orElseThrow(NotFoundException::new);
-        for(Book book: lendList.getLendingLists()){
+        for (Book book : lendList.getLendingLists()) {
             book.setLendCount(book.getLendCount() - 1);
         }
         lendingListRepository.delete(lendList);
@@ -54,13 +52,12 @@ public class LendingListService implements InterfaceLendingListService {
 
     @Override
     public LendList addBookToList(Long listId, BookID bookId) {
-        Optional<Book> bookOptional = bookRepository.findById(bookId.getId());
-        Book book = bookOptional.orElseThrow(NotFoundException::new);
+        Book book = bookService.findBookById(bookId.getId());
         LendList lendList = lendingListRepository.findById(listId).orElseThrow(NotFoundException::new);
-        if (lendList.getLendingLists().contains(book)){
+        if (lendList.getLendingLists().contains(book)) {
             throw new IllegalOperationException();
         }
-        if (lendList.isLended()){
+        if (lendList.isLended()) {
             throw new IllegalOperationException();
         }
         lendList.getLendingLists().add(book);
@@ -69,10 +66,9 @@ public class LendingListService implements InterfaceLendingListService {
 
     @Override
     public void removeBookFromLendingList(Long listId, BookID bookId) {
-        Optional<Book> bookOptional = bookRepository.findById(bookId.getId());
-        Book book = bookOptional.orElseThrow(NotFoundException::new);
+        Book book = bookService.findBookById(bookId.getId());
         LendList lendList = lendingListRepository.findById(listId).orElseThrow(NotFoundException::new);
-        if (lendList.isLended()){
+        if (lendList.isLended()) {
             book.setLendCount(book.getLendCount() - 1);
         }
         lendList.getLendingLists().remove(book);
@@ -82,10 +78,10 @@ public class LendingListService implements InterfaceLendingListService {
     @Override
     public void lendList(Long listId) {
         LendList lendList = lendingListRepository.findById(listId).orElseThrow(NotFoundException::new);
-        if (lendList.isLended()){
+        if (lendList.isLended()) {
             throw new IllegalOperationException();
         }
-        for(Book book: lendList.getLendingLists()){
+        for (Book book : lendList.getLendingLists()) {
             book.setLendCount(book.getLendCount() + 1);
         }
         lendList.setLended(true);

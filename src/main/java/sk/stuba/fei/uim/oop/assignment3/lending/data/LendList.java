@@ -2,7 +2,6 @@ package sk.stuba.fei.uim.oop.assignment3.lending.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 
@@ -26,6 +25,6 @@ public class LendList {
 
     public LendList() {
         this.lended = false;
-        this.lendingLists = new ArrayList<Book>();
+        this.lendingLists = new ArrayList<>();
     }
 }

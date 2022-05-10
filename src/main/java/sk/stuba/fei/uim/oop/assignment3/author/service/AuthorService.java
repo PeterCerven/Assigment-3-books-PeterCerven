@@ -2,9 +2,9 @@ package sk.stuba.fei.uim.oop.assignment3.author.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.author.bodies.AuthorRequest;
 import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
 import sk.stuba.fei.uim.oop.assignment3.author.data.AuthorRepository;
-import sk.stuba.fei.uim.oop.assignment3.author.bodies.AuthorRequest;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
 import java.util.List;
@@ -22,12 +22,10 @@ public class AuthorService implements InterfaceAuthorService {
 
     }
 
-
     @Override
     public List<Author> getAllAuthors() {
         return this.authorRepository.findAll();
     }
-
 
     @Override
     public Author createAuthor(AuthorRequest request) {
@@ -55,6 +53,11 @@ public class AuthorService implements InterfaceAuthorService {
     @Override
     public void delete(Long id) {
         this.authorRepository.delete(this.authorRepository.findById(id).orElseThrow(NotFoundException::new));
+    }
+
+    public Author findAuthorById(Long id){
+        Optional<Author> authorOptional = authorRepository.findById(id);
+        return authorOptional.orElseThrow(NotFoundException::new);
     }
 
 
