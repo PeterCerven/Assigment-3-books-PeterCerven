@@ -34,13 +34,13 @@ public class AuthorController {
     }
 
     @GetMapping({"/{id}"})
-    public AuthorResponse getAuthorWithId(@PathVariable("id") Long authorId) throws NotFoundException{
+    public AuthorResponse getAuthorWithId(@PathVariable("id") Long authorId) throws NotFoundException {
         return new AuthorResponse(this.authorService.getAuthor(authorId));
     }
 
     @PutMapping({"/{id}"})
     public AuthorResponse updateAuthor(@PathVariable("id") Long authorId, @RequestBody AuthorRequest body)
-            throws NotFoundException{
+            throws NotFoundException {
         return new AuthorResponse(this.authorService.updateAuthor(authorId, body));
     }
 

@@ -92,7 +92,7 @@ public class BookService implements InterfaceBookService {
         return bookRepository.findById(id).orElseThrow(NotFoundException::new).getLendCount();
     }
 
-    public Book findBookById(Long id) throws NotFoundException{
+    public Book findBookById(Long id) throws NotFoundException {
         Optional<Book> bookOptional = bookRepository.findById(id);
         return bookOptional.orElseThrow(NotFoundException::new);
     }

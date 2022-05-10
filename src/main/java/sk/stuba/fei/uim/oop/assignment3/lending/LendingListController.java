@@ -48,13 +48,13 @@ public class LendingListController {
 
     @PostMapping("{id}/add")
     public LendingListResponse addBookToList(@PathVariable("id") Long listId, @RequestBody BookID bookId)
-            throws NotFoundException, IllegalOperationException{
+            throws NotFoundException, IllegalOperationException {
         return new LendingListResponse(this.lendingListService.addBookToList(listId, bookId));
     }
 
     @DeleteMapping("{id}/remove")
     public void removeBookFromList(@PathVariable("id") Long listId, @RequestBody BookID bookId)
-            throws NotFoundException{
+            throws NotFoundException {
         this.lendingListService.removeBookFromLendingList(listId, bookId);
     }
 

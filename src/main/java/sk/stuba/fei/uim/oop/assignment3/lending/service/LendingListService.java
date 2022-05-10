@@ -51,7 +51,7 @@ public class LendingListService implements InterfaceLendingListService {
     }
 
     @Override
-    public LendList addBookToList(Long listId, BookID bookId) throws NotFoundException, IllegalOperationException{
+    public LendList addBookToList(Long listId, BookID bookId) throws NotFoundException, IllegalOperationException {
         Book book = bookService.findBookById(bookId.getId());
         LendList lendList = lendingListRepository.findById(listId).orElseThrow(NotFoundException::new);
         if (lendList.getLendingLists().contains(book)) {
@@ -65,7 +65,7 @@ public class LendingListService implements InterfaceLendingListService {
     }
 
     @Override
-    public void removeBookFromLendingList(Long listId, BookID bookId) throws NotFoundException{
+    public void removeBookFromLendingList(Long listId, BookID bookId) throws NotFoundException {
         Book book = bookService.findBookById(bookId.getId());
         LendList lendList = lendingListRepository.findById(listId).orElseThrow(NotFoundException::new);
         if (lendList.isLended()) {
