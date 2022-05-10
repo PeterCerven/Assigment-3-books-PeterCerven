@@ -32,7 +32,7 @@ public class LendingListService implements InterfaceLendingListService {
     }
 
     @Override
-    public LendList getById(Long id) {
+    public LendList getById(Long id) throws NotFoundException {
         return lendingListRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
@@ -42,7 +42,7 @@ public class LendingListService implements InterfaceLendingListService {
     }
 
     @Override
-    public void deleteLendingList(Long id) {
+    public void deleteLendingList(Long id) throws NotFoundException {
         LendList lendList = lendingListRepository.findById(id).orElseThrow(NotFoundException::new);
         for (Book book : lendList.getLendingLists()) {
             book.setLendCount(book.getLendCount() - 1);
@@ -51,7 +51,7 @@ public class LendingListService implements InterfaceLendingListService {
     }
 
     @Override
-    public LendList addBookToList(Long listId, BookID bookId) {
+    public LendList addBookToList(Long listId, BookID bookId) throws NotFoundException, IllegalOperationException{
         Book book = bookService.findBookById(bookId.getId());
         LendList lendList = lendingListRepository.findById(listId).orElseThrow(NotFoundException::new);
         if (lendList.getLendingLists().contains(book)) {
@@ -65,7 +65,7 @@ public class LendingListService implements InterfaceLendingListService {
     }
 
     @Override
-    public void removeBookFromLendingList(Long listId, BookID bookId) {
+    public void removeBookFromLendingList(Long listId, BookID bookId) throws NotFoundException{
         Book book = bookService.findBookById(bookId.getId());
         LendList lendList = lendingListRepository.findById(listId).orElseThrow(NotFoundException::new);
         if (lendList.isLended()) {
@@ -76,7 +76,7 @@ public class LendingListService implements InterfaceLendingListService {
     }
 
     @Override
-    public void lendList(Long listId) {
+    public void lendList(Long listId) throws NotFoundException, IllegalOperationException {
         LendList lendList = lendingListRepository.findById(listId).orElseThrow(NotFoundException::new);
         if (lendList.isLended()) {
             throw new IllegalOperationException();

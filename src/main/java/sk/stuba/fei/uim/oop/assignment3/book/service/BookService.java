@@ -36,7 +36,7 @@ public class BookService implements InterfaceBookService {
 
 
     @Override
-    public Book createBook(BookRequest request) {
+    public Book createBook(BookRequest request) throws NotFoundException {
         Author author = authorService.findAuthorById(request.getAuthor());
         Book book = new Book(request, author);
         author.getBooks().add(book);
@@ -45,12 +45,12 @@ public class BookService implements InterfaceBookService {
 
 
     @Override
-    public Book getById(Long id) {
+    public Book getById(Long id) throws NotFoundException {
         return bookRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
-    public Book updateBook(Long id, BookRequestEdit body) {
+    public Book updateBook(Long id, BookRequestEdit body) throws NotFoundException {
         Book book = bookRepository.findById(id).orElseThrow(NotFoundException::new);
         if (body.getName() != null) {
             book.setName(body.getName());
@@ -69,30 +69,30 @@ public class BookService implements InterfaceBookService {
     }
 
     @Override
-    public void deleteBook(Long id) {
+    public void deleteBook(Long id) throws NotFoundException {
         Book book = bookRepository.findById(id).orElseThrow(NotFoundException::new);
         book.getAuthor().getBooks().remove(book);
         bookRepository.delete(book);
     }
 
     @Override
-    public int getAmount(Long id) {
+    public int getAmount(Long id) throws NotFoundException {
         return bookRepository.findById(id).orElseThrow(NotFoundException::new).getAmount();
     }
 
     @Override
-    public int updateBookAmount(Long id, Amount amount) {
+    public int updateBookAmount(Long id, Amount amount) throws NotFoundException {
         Book book = bookRepository.findById(id).orElseThrow(NotFoundException::new);
         book.setAmount(book.getAmount() + amount.getAmount());
         return book.getAmount();
     }
 
     @Override
-    public int getLendCount(Long id) {
+    public int getLendCount(Long id) throws NotFoundException {
         return bookRepository.findById(id).orElseThrow(NotFoundException::new).getLendCount();
     }
 
-    public Book findBookById(Long id){
+    public Book findBookById(Long id) throws NotFoundException{
         Optional<Book> bookOptional = bookRepository.findById(id);
         return bookOptional.orElseThrow(NotFoundException::new);
     }

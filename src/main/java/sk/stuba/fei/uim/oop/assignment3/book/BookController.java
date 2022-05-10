@@ -9,6 +9,7 @@ import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookRequest;
 import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookRequestEdit;
 import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookResponse;
 import sk.stuba.fei.uim.oop.assignment3.book.service.InterfaceBookService;
+import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,37 +31,37 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<BookResponse> createBook(@RequestBody BookRequest request) {
+    public ResponseEntity<BookResponse> createBook(@RequestBody BookRequest request) throws NotFoundException  {
         return new ResponseEntity<>(new BookResponse(this.bookService.createBook(request)), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public BookResponse getBook(@PathVariable("id") Long bookId) {
+    public BookResponse getBook(@PathVariable("id") Long bookId) throws NotFoundException {
         return new BookResponse(this.bookService.getById(bookId));
     }
 
     @PutMapping("/{id}")
-    public BookResponse updateBook(@PathVariable("id") Long bookId, @RequestBody BookRequestEdit body) {
+    public BookResponse updateBook(@PathVariable("id") Long bookId, @RequestBody BookRequestEdit body) throws NotFoundException {
         return new BookResponse(this.bookService.updateBook(bookId, body));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable("id") Long bookId) {
+    public void deleteBook(@PathVariable("id") Long bookId) throws NotFoundException {
         this.bookService.deleteBook(bookId);
     }
 
     @GetMapping("/{id}/amount")
-    public Amount getBookAmount(@PathVariable("id") Long id) {
+    public Amount getBookAmount(@PathVariable("id") Long id) throws NotFoundException {
         return new Amount(this.bookService.getAmount(id));
     }
 
     @PostMapping("/{id}/amount")
-    public Amount updateBookAmount(@PathVariable("id") Long id, @RequestBody Amount amount) {
+    public Amount updateBookAmount(@PathVariable("id") Long id, @RequestBody Amount amount) throws NotFoundException{
         return new Amount(this.bookService.updateBookAmount(id, amount));
     }
 
     @GetMapping("/{id}/lendCount")
-    public Amount getBookLendCount(@PathVariable("id") Long id) {
+    public Amount getBookLendCount(@PathVariable("id") Long id) throws NotFoundException{
         return new Amount(this.bookService.getLendCount(id));
     }
 

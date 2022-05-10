@@ -33,12 +33,12 @@ public class AuthorService implements InterfaceAuthorService {
     }
 
     @Override
-    public Author getAuthor(Long id) {
+    public Author getAuthor(Long id) throws NotFoundException {
         return this.authorRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @Override
-    public Author updateAuthor(Long id, AuthorRequest body) {
+    public Author updateAuthor(Long id, AuthorRequest body) throws NotFoundException {
         Optional<Author> authorOptional = this.authorRepository.findById(id);
         Author author = authorOptional.orElseThrow(NotFoundException::new);
         if (body.getName() != null) {
@@ -51,11 +51,11 @@ public class AuthorService implements InterfaceAuthorService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id) throws NotFoundException {
         this.authorRepository.delete(this.authorRepository.findById(id).orElseThrow(NotFoundException::new));
     }
 
-    public Author findAuthorById(Long id){
+    public Author findAuthorById(Long id) throws NotFoundException {
         Optional<Author> authorOptional = authorRepository.findById(id);
         return authorOptional.orElseThrow(NotFoundException::new);
     }
