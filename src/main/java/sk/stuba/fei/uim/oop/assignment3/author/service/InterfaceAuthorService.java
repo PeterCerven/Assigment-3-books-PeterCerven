@@ -1,6 +1,6 @@
 package sk.stuba.fei.uim.oop.assignment3.author.service;
 
-import sk.stuba.fei.uim.oop.assignment3.author.bodies.AuthorRequest;
+import sk.stuba.fei.uim.oop.assignment3.author.web.bodies.AuthorRequest;
 import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 

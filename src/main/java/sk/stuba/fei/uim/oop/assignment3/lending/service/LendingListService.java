@@ -7,7 +7,7 @@ import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 import sk.stuba.fei.uim.oop.assignment3.book.service.BookService;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.IllegalOperationException;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
-import sk.stuba.fei.uim.oop.assignment3.lending.bodies.BookID;
+import sk.stuba.fei.uim.oop.assignment3.lending.web.bodies.BookID;
 import sk.stuba.fei.uim.oop.assignment3.lending.data.LendList;
 import sk.stuba.fei.uim.oop.assignment3.lending.data.LendingListRepository;
 

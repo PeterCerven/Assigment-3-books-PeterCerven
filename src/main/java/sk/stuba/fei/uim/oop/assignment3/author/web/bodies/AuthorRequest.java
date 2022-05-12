@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.assignment3.author.bodies;
+package sk.stuba.fei.uim.oop.assignment3.author.web.bodies;
 
 
 import lombok.Getter;

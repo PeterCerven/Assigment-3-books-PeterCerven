@@ -1,8 +1,8 @@
-package sk.stuba.fei.uim.oop.assignment3.lending.bodies;
+package sk.stuba.fei.uim.oop.assignment3.lending.web.bodies;
 
 import lombok.Getter;
 import lombok.Setter;
-import sk.stuba.fei.uim.oop.assignment3.book.bodies.BookResponse;
+import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookResponse;
 import sk.stuba.fei.uim.oop.assignment3.lending.data.LendList;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.assignment3.lending;
+package sk.stuba.fei.uim.oop.assignment3.lending.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.IllegalOperationException;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
-import sk.stuba.fei.uim.oop.assignment3.lending.bodies.BookID;
-import sk.stuba.fei.uim.oop.assignment3.lending.bodies.LendingListResponse;
+import sk.stuba.fei.uim.oop.assignment3.lending.web.bodies.BookID;
+import sk.stuba.fei.uim.oop.assignment3.lending.web.bodies.LendingListResponse;
 import sk.stuba.fei.uim.oop.assignment3.lending.service.InterfaceLendingListService;
 
 import java.util.List;

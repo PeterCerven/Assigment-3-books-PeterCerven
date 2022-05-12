@@ -1,11 +1,11 @@
-package sk.stuba.fei.uim.oop.assignment3.author;
+package sk.stuba.fei.uim.oop.assignment3.author.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sk.stuba.fei.uim.oop.assignment3.author.bodies.AuthorRequest;
-import sk.stuba.fei.uim.oop.assignment3.author.bodies.AuthorResponse;
+import sk.stuba.fei.uim.oop.assignment3.author.web.bodies.AuthorRequest;
+import sk.stuba.fei.uim.oop.assignment3.author.web.bodies.AuthorResponse;
 import sk.stuba.fei.uim.oop.assignment3.author.service.InterfaceAuthorService;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
