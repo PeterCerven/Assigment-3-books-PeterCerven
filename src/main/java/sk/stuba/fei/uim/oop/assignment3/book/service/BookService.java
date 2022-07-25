@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
 import sk.stuba.fei.uim.oop.assignment3.author.service.AuthorService;
+import sk.stuba.fei.uim.oop.assignment3.author.service.InterfaceAuthorService;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.Amount;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookRequest;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookRequestEdit;
